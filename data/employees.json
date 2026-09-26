@@ -18,5 +18,15 @@
         "role": "web devloper",
         "salary": "35000",
         "status": "active"
+    },
+    {
+        "employee_id": "EM003",
+        "name": "shravan hadap",
+        "email": "shravan@gmail.com",
+        "phone": "0987654321",
+        "department": "operation",
+        "role": "supervisor",
+        "salary": "20000",
+        "status": "active"
     }
 ]
