@@ -8,5 +8,15 @@
         "role": "manager",
         "salary": "35000",
         "status": "active"
+    },
+    {
+        "employee_id": "EM002",
+        "name": "altafpinjari",
+        "email": "altafpinjari@gmail.com",
+        "phone": "Enter phone No: ",
+        "department": "operation",
+        "role": "web devloper",
+        "salary": "35000",
+        "status": "active"
     }
 ]
