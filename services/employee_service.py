@@ -27,13 +27,12 @@ def employee_menu():
              input("press Enter to go back menu: ")
 
         elif choice == "2":
-            print("\nView Employees selected.")
             view_employee()
             input("press Enter to go back menu: ")
 
         elif choice == "3":
-            print("\nSearch Employee selected.")
-
+            search_employee()
+            input("Press Enter to go back to menu: ")
         elif choice == "4":
             print("\nUpdate Employee selected.")
 
@@ -82,8 +81,8 @@ def view_employee():
     print("║                    EMPLOYEE DIRECTORY                        ║")
     print("╠══════════════════════════════════════════════════════════════╣")
     for employee in employees:
-        print(f"    employee Id:           {employee["employee_id"]}")
-        print(f"    Name:                  {employee["name"]}")
+        print(f"    employee Id:           {employee['employee_id']}")
+        print(f"    Name:                  {employee['name']}")
         print(f"    Department  :          {employee['department']}")
         print(f"    Role        :          {employee['role']}")
         print(f"    Salary      :          ₹{employee['salary']}")
@@ -92,3 +91,33 @@ def view_employee():
 
 
     print("╚══════════════════════════════════════════════════════════════╝")
+
+
+def search_employee():
+    employees = load_employees()
+
+    if not employees:
+        print("No employees found.")
+        return
+
+    search_id = input("Enter Employee ID: ")
+
+    for employee in employees:
+         if employee['employee_id'].lower() == search_id.lower():
+            print("Employee found.")
+            print("────────────────────────────────────────")
+            print(f"    employee Id:           {employee['employee_id']}")
+            print(f"    Name:                  {employee['name']}")
+            print(f"    Department  :          {employee['department']}")
+            print(f"    Role        :          {employee['role']}")
+            print(f"    Salary      :          ₹{employee['salary']}")
+            print(f"    Status      :          {employee['status']}")
+            print("────────────────────────────────────────")
+
+            return
+
+    print("Employee not found")
+
+              
+
+     
