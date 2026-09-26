@@ -1,0 +1,12 @@
+[
+    {
+        "employee_id": "EM001",
+        "name": "arfatkhatik",
+        "email": "arfatkhatik@gmail.com",
+        "phone": "Enter phone No: ",
+        "department": "operation",
+        "role": "manager",
+        "salary": "35000",
+        "status": "active"
+    }
+]
