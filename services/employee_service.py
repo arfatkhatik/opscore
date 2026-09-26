@@ -38,7 +38,8 @@ def employee_menu():
             input("Press Enter to go back to menu: ")
 
         elif choice == "5":
-            print("\nRemove Employee selected.")
+            remove_employee()
+            input("Press Enter to go back to menu: ")
 
         elif choice == "0":
             break
@@ -180,4 +181,41 @@ def update_employee():
 
             print("Employee details updated successfully.")
             return
+
+
+def remove_employee():
+    employees = load_employees()
+
+    if not employees:
+        print("NO Employees found.")
+        return
+
+    employee_id = input("Enter id to remove Employee: ")
+
+    for employee in employees:
+        if employee['employee_id'].lower() == employee_id.lower():
+            print("Employee found.")
+            print("────────────────────────────────────────────────────────────────")
+            print(f"employee Id:           {employee['employee_id']}")
+            print(f"Name:                  {employee['name']}")
+            print(f"Department  :          {employee['department']}")
+            print(f"Role        :          {employee['role']}")
+            print(f"Salary      :          ₹{employee['salary']}")
+            print(f"Status      :          {employee['status']}")
+            print("────────────────────────────────────────────────────────────────")
+
+            confirmation = input("Do you really want to remove this Employee (yes/no): ").lower().strip()
+            if confirmation == "yes":
+                employees.remove(employee)
+                save_employee(employees)
+                print(f"Employee named {employee['name']} removed successfully.")
+                return
+            elif confirmation == "no":
+                print("Employee removal canceled.")
+                return
+            else:
+                print("Invalid option.")
+                return
+    print("Employee not found.")
+    
      
