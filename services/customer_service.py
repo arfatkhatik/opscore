@@ -30,7 +30,8 @@ def customer_menu():
             input("press Enter to go back menu: ")
 
         elif choice == "3":
-            print("Search Customer selected.")
+            search_customer()
+            input("press Enter to go back menu: ")
 
         elif choice == "4":
             print("Update Customer selected.")
@@ -92,3 +93,28 @@ def view_customers():
         print(f"    Customer Status:        {customer['status']}")
         print("\n────────────────────────────────────────────────────────────────")
     print("\n╚══════════════════════════════════════════════════════════════╝")
+
+
+def search_customer():
+    customers = load_customers()
+
+    if not customers:
+        print("No customer found.")
+        return
+
+    search_id = input("Enter customer Id to search: ")
+
+    for customer in customers:
+        if customer['customer_id'].lower() == search_id:
+            print("Customer found.")
+            print("────────────────────────────────────────────────────────────────")
+            print(f"Customer ID :          {customer['customer_id']}")
+            print(f"Name        :          {customer['name']}")
+            print(f"Email       :          {customer['email']}")
+            print(f"Phone       :          {customer['phone']}")
+            print(f"Address     :          {customer['address']}")
+            print(f"Status      :          {customer['status']}")
+            print("────────────────────────────────────────────────────────────────")
+            return
+
+    print("Customer not found.")
