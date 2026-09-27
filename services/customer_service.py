@@ -34,7 +34,9 @@ def customer_menu():
             input("press Enter to go back menu: ")
 
         elif choice == "4":
-            print("Update Customer selected.")
+            update_customer()
+            input("press Enter to go back menu: ")
+
 
         elif choice == "5":
             print("Remove Customer selected.")
@@ -118,3 +120,59 @@ def search_customer():
             return
 
     print("Customer not found.")
+
+def update_customer():
+    customers = load_customers()
+
+    if not customers:
+        print("No customer found.")
+        return
+
+    search_id = input("Enter customer Id to search: ")
+
+    for customer in customers:
+        if customer['customer_id'].lower() == search_id.lower():
+            print("Customer found.")
+            print("────────────────────────────────────────────────────────────────")
+            print(f"Customer ID :          {customer['customer_id']}")
+            print(f"Name        :          {customer['name']}")
+            print(f"Email       :          {customer['email']}")
+            print(f"Phone       :          {customer['phone']}")
+            print(f"Address     :          {customer['address']}")
+            print(f"Status      :          {customer['status']}")
+            print("────────────────────────────────────────────────────────────────")
+
+            print("""
+                What do you want to update?
+            
+                [1] Name
+                [2] Email
+                [3] Phone
+                [4] Address
+                [5] Status
+                [0] Cancel
+                    
+                """)
+            choice = input("Enter your Choice number to Update: ")
+            if choice == "1":
+                customer['name'] = input("Enter new Name: ")
+            elif choice == "2":
+                customer['email'] = input("Enter new email: ")
+            elif choice == "3":
+                customer['phone'] = input("Enter new Phone number: ")
+            elif choice == "4":
+                customer['address'] = input("Enter new address: ")
+            elif choice == "5":
+                customer['status'] = input("Enter new status: ")
+            elif choice == "0":
+                print("Update cancel.")
+                return
+            else:
+                print("Invalid option.")
+                return
+
+            save_customer(customers)
+
+            print("Customer updated successfully.")
+            
+
