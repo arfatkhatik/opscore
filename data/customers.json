@@ -1,0 +1,10 @@
+[
+    {
+        "customer_id": "c001",
+        "name": "testing",
+        "email": "xyz",
+        "phone": "xyz",
+        "address": "xyz",
+        "status": "xyz"
+    }
+]

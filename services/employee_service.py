@@ -20,7 +20,7 @@ def employee_menu():
         print("║                                                              ║")
         print("╚══════════════════════════════════════════════════════════════╝")
 
-        choice = input("\nEnter your choice:  ")
+        choice = input("Enter your choice:  ")
 
         if choice == "1":
              add_employee()
@@ -42,6 +42,7 @@ def employee_menu():
             input("Press Enter to go back to menu: ")
 
         elif choice == "0":
+            
             break
 
         else:

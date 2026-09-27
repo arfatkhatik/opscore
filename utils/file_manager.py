@@ -9,3 +9,12 @@ def save_employee(data):
 def load_employees():
     with open("data/employees.json", "r") as file:
         return json.load(file)
+
+
+def save_customer(data):
+    with open("data/customers.json", "w") as file:
+        json.dump(data,file, indent=4)
+
+def load_customers():
+    with open("data/customers.json", "r") as file:
+        return json.load(file)
