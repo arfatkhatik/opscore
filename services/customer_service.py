@@ -26,7 +26,8 @@ def customer_menu():
             input("press Enter to go back menu: ")
 
         elif choice == "2":
-            print("View Customers selected.")
+            view_customers()
+            input("press Enter to go back menu: ")
 
         elif choice == "3":
             print("Search Customer selected.")
@@ -51,7 +52,7 @@ def add_customer():
     address = input("Enter customer address: ")
     
 
-    customer = Customer(customer_id, name, email, phone, address, status)
+    customer = Customer(customer_id, name, email, phone, address)
 
     customer_data = {
         "customer_id": customer.customer_id,
@@ -60,9 +61,34 @@ def add_customer():
         "phone": customer.phone,
         "address": customer.address,
         "status": customer.status
+        
     }
 
     customers = load_customers()
     customers.append(customer_data)
     save_customer(customers)
     print("Customer added successfully.")
+
+
+def view_customers():
+    customers = load_customers()
+
+    if not customers:
+        print("No Customer Found.")
+        return
+    
+    print("╔══════════════════════════════════════════════════════════════╗")
+    print("║                                                              ║")
+    print("║                    CUSTOMER DIRECTORY                        ║")
+    print("║                                                              ║")
+    print("╠══════════════════════════════════════════════════════════════╣")
+
+    for customer in customers:
+        print(f"\n    Customer ID:            {customer['customer_id']}")
+        print(f"    Customer Name:          {customer['name']}")
+        print(f"    Customer Email:         {customer['email']}")
+        print(f"    Customer Phone:         {customer['phone']}")
+        print(f"    Customer Address:       {customer['address']}")
+        print(f"    Customer Status:        {customer['status']}")
+        print("\n────────────────────────────────────────────────────────────────")
+    print("\n╚══════════════════════════════════════════════════════════════╝")
