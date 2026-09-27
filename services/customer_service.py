@@ -39,7 +39,9 @@ def customer_menu():
 
 
         elif choice == "5":
-            print("Remove Customer selected.")
+            remove_customer()
+            input("press Enter to go back menu: ")
+
 
         elif choice == "0":
             break
@@ -176,3 +178,38 @@ def update_customer():
             print("Customer updated successfully.")
             
 
+def remove_customer():
+    customers = load_customers()
+
+    if not customers:
+        print("No customer found.")
+        return
+    
+    search_id = input("Enter customer ID to remove: ")
+
+    for customer in customers:
+        if customer['customer_id'].lower() == search_id.lower():
+            print("Customer Found.")
+            print("────────────────────────────────────────────────────────────────")
+            print(f"Customer ID :          {customer['customer_id']}")
+            print(f"Name        :          {customer['name']}")
+            print(f"Email       :          {customer['email']}")
+            print(f"Phone       :          {customer['phone']}")
+            print(f"Address     :          {customer['address']}")
+            print(f"Status      :          {customer['status']}")
+            print("────────────────────────────────────────────────────────────────")
+
+            confirmation = input("Do you really want to remove customer (yes/no): ").lower().strip()
+            if confirmation == "yes":
+                customers.remove(customer)
+                save_customer(customers)
+                print("Customer removed successfully.")
+                return
+            elif confirmation == "no":
+                print("Customer removal canceled.")
+                return
+            else:
+                print("Invalid option selected.")
+                return
+
+    print("customer not found.")
