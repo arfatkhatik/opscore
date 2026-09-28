@@ -40,7 +40,8 @@ def job_menu():
 
 
         elif choice == "5":
-            print("Remove Job selected.")
+            remove_job()
+            input("Press Enter to go back to menu: ")
 
         elif choice == "0":
             break
@@ -173,5 +174,42 @@ def update_job():
 
             print("Details updated successfully.")
             return
+
+    print("Job not found.")
+
+
+def remove_job():
+    jobs = load_jobs()
+
+    if not jobs:
+            print("No jobs Found.")
+            return
+    
+    search_id = input("Enter Job ID to search: ")
+    
+    for job in jobs:
+        if job['job_id'].lower() == search_id.lower():
+            print(f"\n    Job ID        :          {job['job_id']}")
+            print(f"    Customer ID   :          {job['customer_id']}")
+            print(f"    Job Title     :          {job['job_title']}")
+            print(f"    Description   :          {job['description']}")
+            print(f"    Priority      :          {job['priority']}")
+            print(f"    Status        :          {job['status']}")
+            print(f"    Schedule Date :          {job['schedule_date']}")
+            print("\n────────────────────────────────────────────────────────────────")
+
+            confirmation = input("Do you really want to remove this job (yes/no): ").lower()
+            if confirmation == "yes":
+                jobs.remove(job)
+                save_jobs(jobs)
+                print("Job removed successfully.")
+                return
+            elif confirmation == "no":
+                print("job removal canceled.")
+                return
+            else:
+                print("Invalid option selected.")
+                return
+
 
     print("Job not found.")

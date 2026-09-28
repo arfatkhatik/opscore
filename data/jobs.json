@@ -7,14 +7,5 @@
         "priority": "test",
         "schedule_date": "0508",
         "status": "done"
-    },
-    {
-        "job_id": "job002",
-        "customer_id": "c002",
-        "job_title": "cooler repair",
-        "description": "testing",
-        "priority": "high",
-        "schedule_date": "testing",
-        "status": "pending"
     }
 ]
