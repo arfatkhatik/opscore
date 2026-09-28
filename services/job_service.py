@@ -27,7 +27,8 @@ def job_menu():
             add_job()
             input("press Enter to go back menu: ")
         elif choice == "2":
-            print("View Jobs selected.")
+            view_jobs()
+            input("Press Enter to go back to menu: ")
 
         elif choice == "3":
             print("Search Job selected.")
@@ -69,3 +70,27 @@ def add_job():
     jobs.append(job_data)
     save_jobs(jobs)
     print("Job added successfully")
+
+
+def view_jobs():
+    jobs = load_jobs()
+
+    if not jobs:
+        print("No Jobs Found.")
+        return
+
+    print("╔══════════════════════════════════════════════════════════════╗")
+    print("║                                                              ║")
+    print("║                       JOB DIRECTORY                          ║")
+    print("║                                                              ║")
+    print("╠══════════════════════════════════════════════════════════════╣")
+    for job in jobs:
+        print(f"\n    Job ID        :          {job['job_id']}")
+        print(f"    Customer ID   :          {job['customer_id']}")
+        print(f"    Job Title     :          {job['job_title']}")
+        print(f"    Description   :          {job['description']}")
+        print(f"    Priority      :          {job['priority']}")
+        print(f"    Status        :          {job['status']}")
+        print(f"    Schedule Date :          {job['schedule_date']}")
+        print("\n────────────────────────────────────────────────────────────────")
+    print("\n╚══════════════════════════════════════════════════════════════╝")
