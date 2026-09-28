@@ -35,7 +35,9 @@ def job_menu():
             input("Press Enter to go back to menu: ")
 
         elif choice == "4":
-            print("Update Job selected.")
+            update_job()
+            input("Press Enter to go back to menu: ")
+
 
         elif choice == "5":
             print("Remove Job selected.")
@@ -119,4 +121,57 @@ def search_job():
             return
 
     print("No job found.")
-            
+
+
+def update_job():
+    jobs = load_jobs()
+
+    if not jobs:
+        print("No jobs Found.")
+        return
+
+    search_id = input("Enter Job ID to search: ")
+
+    for job in jobs:
+        if job['job_id'].lower() == search_id.lower():
+            print(f"\n    Job ID        :          {job['job_id']}")
+            print(f"    Customer ID   :          {job['customer_id']}")
+            print(f"    Job Title     :          {job['job_title']}")
+            print(f"    Description   :          {job['description']}")
+            print(f"    Priority      :          {job['priority']}")
+            print(f"    Status        :          {job['status']}")
+            print(f"    Schedule Date :          {job['schedule_date']}")
+            print("\n────────────────────────────────────────────────────────────────")
+
+            print("""
+            [1] Job Title
+            [2] Description
+            [3] Priority
+            [4] Status
+            [5] Schedule Date
+            [0] Cancel""")
+
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                job['job_title'] = input("Enter new job title: ")
+            elif choice == "2":
+                job['description'] = input("Enter new Description: ")
+            elif choice == "3":
+                job['priority'] = input("Enter new priority: ")
+            elif choice == "4":
+                job['status'] = input("Enter new status: ")
+            elif choice == "5":
+                job['schedule_date'] = input("Enter new date: ")
+            elif choice == "0":
+                return
+            else:
+                print("Invalid option.")
+                return
+
+            save_jobs(jobs)
+
+            print("Details updated successfully.")
+            return
+
+    print("Job not found.")
