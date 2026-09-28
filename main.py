@@ -1,6 +1,7 @@
 
 from services.employee_service import employee_menu
 from services.customer_service import  customer_menu
+from services.job_service import job_menu
 def splash_screen():
     print("""
 ╔══════════════════════════════════════════════════════════════╗
@@ -76,6 +77,8 @@ def main():
             employee_menu()
         elif choice == "2":
             customer_menu()
+        elif choice == "3":
+            job_menu()
         
         elif choice == "0":
             print("Exiting OPSCORE...")
