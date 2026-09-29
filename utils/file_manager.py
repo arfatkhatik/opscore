@@ -26,3 +26,11 @@ def save_jobs(data):
 def load_jobs():
     with open("data/jobs.json", "r") as file:
         return json.load(file)
+
+def save_assignments(data):
+    with open("data/assignment.json", "w") as file:
+        json.dump(data, file, indent = 4)
+
+def load_assignments():
+    with open("data/assignments.json", "r") as file:
+        return json.load(file)

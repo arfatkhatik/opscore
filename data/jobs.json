@@ -7,5 +7,32 @@
         "priority": "test",
         "schedule_date": "0508",
         "status": "done"
+    },
+    {
+        "job_id": "job002",
+        "customer_id": "cus001",
+        "job_title": "electrical panel repair",
+        "description": "Repair faulty electrical panel",
+        "priority": "high",
+        "schedule_date": "2026-10-5",
+        "status": "pending"
+    },
+    {
+        "job_id": "job003",
+        "customer_id": "cus002",
+        "job_title": "network installation",
+        "description": "Install and configure office network",
+        "priority": "medium",
+        "schedule_date": "2026-10-2",
+        "status": "pending"
+    },
+    {
+        "job_id": "job004",
+        "customer_id": "cus001",
+        "job_title": "ac maintanance",
+        "description": "Complete annual AC maintenance",
+        "priority": "low",
+        "schedule_date": "2026-10-3",
+        "status": "pending"
     }
 ]
