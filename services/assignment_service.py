@@ -33,7 +33,7 @@ def assignment_menu():
             input("Press Enter to go back to menu: ")
 
         elif choice == "2":
-            print("View Assignments selected.")
+            view_assignments()
             input("Press Enter to go back to menu: ")
 
         elif choice == "3":
@@ -130,3 +130,33 @@ def assign_employee():
 
     print("\nEmployee assigned to job successfully.")
     print(f"Assignment ID : {assignment.assignment_id}")
+
+
+def view_assignments():
+    assignments = load_assignments()
+        
+    if not assignments:
+        print("No assignment found.")
+        return
+
+    print("""
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║                    ASSIGNMENT DIRECTORY                      ║
+║                                                              ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+            """)
+
+    for assignment in assignments:
+        print(f"    Assignment ID :          {assignment['assignment_id']}")
+        print(f"    Job ID        :          {assignment['job_id']}")
+        print(f"    Employee ID   :          {assignment['employee_id']}")
+        print(f"    Assigned Date :          {assignment['assigned_date']}")
+        print(f"    Status        :          {assignment['status']}")
+        print("\n────────────────────────────────────────────────────────────────")
+
+
+    print("""
+╚══════════════════════════════════════════════════════════════╝
+            """)
