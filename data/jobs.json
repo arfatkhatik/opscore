@@ -24,7 +24,7 @@
         "description": "Install and configure office network",
         "priority": "medium",
         "schedule_date": "2026-10-2",
-        "status": "pending"
+        "status": "assigned"
     },
     {
         "job_id": "job004",

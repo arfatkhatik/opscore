@@ -1,4 +1,4 @@
-from utils.file_manager import (load_jobs, load_employees, load_assignments, save_assignments)
+from utils.file_manager import (load_jobs, load_employees, load_assignments, save_assignments , save_jobs)
 from datetime import datetime
 from models.assignment import Assignment
 
@@ -124,6 +124,9 @@ def assign_employee():
     }
     assignments.append(assignment_data)
     save_assignments(assignments)
+
+    job['status'] = "assigned"
+    save_jobs(jobs)
 
     print("\nEmployee assigned to job successfully.")
     print(f"Assignment ID : {assignment.assignment_id}")

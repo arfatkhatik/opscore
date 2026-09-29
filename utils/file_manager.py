@@ -28,7 +28,7 @@ def load_jobs():
         return json.load(file)
 
 def save_assignments(data):
-    with open("data/assignment.json", "w") as file:
+    with open("data/assignments.json", "w") as file:
         json.dump(data, file, indent = 4)
 
 def load_assignments():
