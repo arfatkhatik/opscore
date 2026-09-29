@@ -37,7 +37,7 @@ def assignment_menu():
             input("Press Enter to go back to menu: ")
 
         elif choice == "3":
-            print("Search Assignment selected.")
+            search_assignment()
             input("Press Enter to go back to menu: ")
 
         elif choice == "4":
@@ -160,3 +160,25 @@ def view_assignments():
     print("""
 ╚══════════════════════════════════════════════════════════════╝
             """)
+
+
+def search_assignment():
+    assignments = load_assignments()
+
+    if not assignments:
+        print("No assignment Found.")
+        return
+
+    user_id = input("Enter assignment ID to search: ").lower()
+
+    for assignment in assignments:
+        if assignment['assignment_id'].lower() == user_id:
+            print(f"    Assignment ID :          {assignment['assignment_id']}")
+            print(f"    Job ID        :          {assignment['job_id']}")
+            print(f"    Employee ID   :          {assignment['employee_id']}")
+            print(f"    Assigned Date :          {assignment['assigned_date']}")
+            print(f"    Status        :          {assignment['status']}")
+            print("\n────────────────────────────────────────────────────────────────")
+            return
+    print("No assignment Found.")
+
