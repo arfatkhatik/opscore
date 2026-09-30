@@ -45,7 +45,7 @@ def assignment_menu():
             input("Press Enter to go back to menu: ")
 
         elif choice == "5":
-            print("Remove Assignment selected.")
+            remove_assignment()
             input("Press Enter to go back to menu: ")
 
         elif choice == "6":
@@ -277,3 +277,37 @@ def update_assignment():
 
     print("Assignment not found.")
 
+
+def remove_assignment():
+    assignments = load_assignments()
+
+    if not assignments:
+        print("No assignment found.")
+        return
+
+    user_id = input("Enter assignment ID to remove: ").lower().strip()
+    for assignment in assignments:
+        if assignment['assignment_id'].lower() == user_id:
+            print("\n────────────────────────────────────────────────────────────────")
+            print(f"    Assignment ID :          {assignment['assignment_id']}")
+            print(f"    Job ID        :          {assignment['job_id']}")
+            print(f"    Employee ID   :          {assignment['employee_id']}")
+            print(f"    Assigned Date :          {assignment['assigned_date']}")
+            print(f"    Status        :          {assignment['status']}")
+            print("\n────────────────────────────────────────────────────────────────")
+
+            print("Do you really want to cancel this assignment ?")
+            confirmation = input("[1] Yes [2] No \nEnter option: ")
+            if confirmation in ("1", "yes"):
+                assignments.remove(assignment)
+                save_assignments(assignments)
+                print("assignment removed successfully.")
+                return
+            elif confirmation in ("2", "no"):
+                print("assignment removal canceled.")
+                return
+            else:
+                print("Invalid option selected.")
+                return
+    print("No assignment found.")
+    return
