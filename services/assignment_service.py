@@ -41,7 +41,7 @@ def assignment_menu():
             input("Press Enter to go back to menu: ")
 
         elif choice == "4":
-            print("Update Assignment selected.")
+            update_assignment()
             input("Press Enter to go back to menu: ")
 
         elif choice == "5":
@@ -181,4 +181,99 @@ def search_assignment():
             print("\n────────────────────────────────────────────────────────────────")
             return
     print("No assignment Found.")
+
+
+def update_assignment():
+    assignments = load_assignments()
+    employees = load_employees()
+    jobs = load_jobs()
+
+    if not assignments:
+        print("No assignment found.")
+        return
+
+    user_id = input("Enter assigned ID to update: ").lower().strip()
+
+    for assignment in assignments:
+        if assignment['assignment_id'].lower() == user_id:
+            print("\n────────────────────────────────────────────────────────────────")
+            print(f"    Assignment ID :          {assignment['assignment_id']}")
+            print(f"    Job ID        :          {assignment['job_id']}")
+            print(f"    Employee ID   :          {assignment['employee_id']}")
+            print(f"    Assigned Date :          {assignment['assigned_date']}")
+            print(f"    Status        :          {assignment['status']}")
+            print("\n────────────────────────────────────────────────────────────────")
+
+            print("""
+            [1] Update Employee ID
+            [2] Update Job ID
+            [3] Update Assigned Date
+            [4] Update Status
+            [0] Cancel
+            """)
+
+            choice = input("Enter your Choice: ").lower().strip()
+
+            if choice in ("1", "employee id", "update employee id"):
+                new_employee_id = input("Enter new employee ID: ").strip()
+                for employee in employees:
+
+                    if employee['employee_id'].lower() == new_employee_id.lower():
+
+                        assignment['employee_id'] = employee['employee_id']
+
+                        save_assignments(assignments)
+
+                        print(
+                            f"Employee ID changed to "
+                            f"{employee['employee_id']}."
+                        )
+
+                        return
+                print("Employee not found.")
+                return
+            elif choice in ("2","job id", "update job id"):
+                new_job_id = input("Enter new job id: ").strip()
+                for job in jobs:
+
+                    if job['job_id'].lower() == new_job_id.lower():
+
+                        assignment['job_id'] = job['job_id']
+
+                        save_assignments(assignments)
+
+                        print(
+                            f"Job ID changed to "
+                            f"{job['job_id']}."
+                        )
+
+                        return
+                print("NO job found.")
+                return
+            elif choice in ("3", "assigned date", "update assigned date"):
+                new_assigned_date = input("Enter new assigned date: ").strip()
+
+                assignment['assigned_date'] = new_assigned_date
+
+                save_assignments(assignments)
+
+                print(
+                    f"Assigned date changed to "
+                    f"{new_assigned_date}."
+                )
+
+                return
+            elif choice in ("4", "status", "update status"):
+                new_status = input("Enter new status")
+                assignment['status'] = new_status
+                save_assignments(assignments)
+                print(f"status changed to {new_status}.")
+            elif choice in ("0", "cancel"):
+                return
+            else:
+                print("Invalid option.")
+
+            
+
+    print("Assignment not found.")
 
