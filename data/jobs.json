@@ -15,7 +15,7 @@
         "description": "Repair faulty electrical panel",
         "priority": "high",
         "schedule_date": "2026-10-5",
-        "status": "pending"
+        "status": "assigned"
     },
     {
         "job_id": "job003",

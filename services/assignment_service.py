@@ -49,7 +49,7 @@ def assignment_menu():
             input("Press Enter to go back to menu: ")
 
         elif choice == "6":
-            print("Employee Availability selected.")
+            employee_assignment()
             input("Press Enter to go back to menu: ")
 
         elif choice == "7":
@@ -75,6 +75,7 @@ def assign_employee():
 
     for job in jobs:
         if job['job_id'].lower() == ask_job:
+            print("\n────────────────────────────────────────────────────────────────")
             print(f"\n    Job ID        :          {job['job_id']}")
             print(f"    Customer ID   :          {job['customer_id']}")
             print(f"    Job Title     :          {job['job_title']}")
@@ -82,6 +83,7 @@ def assign_employee():
             print(f"    Priority      :          {job['priority']}")
             print(f"    Status        :          {job['status']}")
             print(f"    Schedule Date :          {job['schedule_date']}")
+            print("\n────────────────────────────────────────────────────────────────")
             break
     else:
         print("No job Found with that ID")
@@ -91,12 +93,14 @@ def assign_employee():
 
     for employee in employees:
         if employee['employee_id'].lower() == ask_employee:
+            print("\n────────────────────────────────────────────────────────────────")
             print(f"    employee Id:           {employee['employee_id']}")
             print(f"    Name:                  {employee['name']}")
             print(f"    Department  :          {employee['department']}")
             print(f"    Role        :          {employee['role']}")
             print(f"    Salary      :          ₹{employee['salary']}")
             print(f"    Status      :          {employee['status']}")
+            print("\n────────────────────────────────────────────────────────────────")
             break
     else:
         print("No employee found with that ID")
@@ -173,6 +177,7 @@ def search_assignment():
 
     for assignment in assignments:
         if assignment['assignment_id'].lower() == user_id:
+            print("\n────────────────────────────────────────────────────────────────")
             print(f"    Assignment ID :          {assignment['assignment_id']}")
             print(f"    Job ID        :          {assignment['job_id']}")
             print(f"    Employee ID   :          {assignment['employee_id']}")
@@ -311,3 +316,46 @@ def remove_assignment():
                 return
     print("No assignment found.")
     return
+
+
+def employee_assignment():
+    employees = load_employees()
+    assignments = load_assignments()
+
+    ask_id = input("Enter Employee ID to check avaiblity: ").lower().strip()
+
+    for employee in employees:
+        if employee['employee_id'].lower() == ask_id:
+            print("""
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║                    EMPLOYEE AVAILABILITY                     ║
+║                                                              ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+""")
+            print(f"    employee Id:           {employee['employee_id']}")
+            print(f"    Name:                  {employee['name']}")
+            print(f"    Department  :          {employee['department']}")
+            print(f"    Role        :          {employee['role']}")
+            print(f"    Salary      :          ₹{employee['salary']}")
+            print(f"    Status      :          {employee['status']}")
+            print("\n────────────────────────────────────────────────────────────────")
+
+            has_assignment = False
+            for assignment in assignments:
+                if assignment['employee_id'].lower() == employee['employee_id'].lower():
+                    has_assignment = True
+                    print(f"    Assignment ID   :       {assignment['assignment_id']}")
+                    print(f"    Job ID          :       {assignment['job_id']}")
+                    print(f"    Status          :       {assignment['status']}")
+                    print("\n────────────────────────────────────────────────────────────────")
+            if has_assignment:
+                print("            Employee currently has an assignment.")
+                print("                Availability: NOT AVAILABLE")
+            elif not has_assignment:
+                print("                Availability: AVAILABLE")
+                        
+            print("\n╚══════════════════════════════════════════════════════════════╝")
+
+                    
