@@ -1,3 +1,4 @@
+
 from utils.file_manager import (load_jobs, load_employees, load_assignments, save_assignments , save_jobs)
 from datetime import datetime
 from models.assignment import Assignment
@@ -21,7 +22,7 @@ def assignment_menu():
         print("║                                                              ║")
         print("║      [6]   Employee Availability                             ║")
         print("║      [7]   Job Schedule                                      ║")
-        print("║                                                              ║")
+        print("║      [8] Find Available Employees                            ║")
         print("║      [0]   Back to Main Menu                                 ║")
         print("║                                                              ║")
         print("╚══════════════════════════════════════════════════════════════╝")
@@ -54,6 +55,9 @@ def assignment_menu():
 
         elif choice == "7":
             job_schedule()
+            input("Press Enter to go back to menu: ")
+        elif choice == "8":
+            find_available_employees()
             input("Press Enter to go back to menu: ")
 
         elif choice == "0":
@@ -450,4 +454,68 @@ def check_employee_availability():
         print(f"Employee ID: {employee['employee_id']}")
         print(f"Requested Date: {ask_date}")
         print("\nAvailability: AVAILABLE")
-    
+
+
+def find_available_employees():
+    jobs = load_jobs()
+    assignments = load_assignments()
+    employees = load_employees()
+
+    ask_job_id = input("Enter job ID to find available employees: ").lower().strip()
+    found_job = False
+
+    for job in jobs:
+        if job['job_id'].lower() == ask_job_id:
+            found_job = True
+            requested_job = job
+            break
+
+    if not found_job:
+        print("No job found with that ID.")
+        return
+
+    job_date = datetime.strptime(requested_job['schedule_date'], "%Y-%m-%d").date()
+
+    print("\n────────────────────────────────────────────────────────────────")
+    print("JOB DETAILS:")
+    print(f"\n      Job ID        :          {requested_job['job_id']}")
+    print(f"      Customer ID   :          {requested_job['customer_id']}")
+    print(f"      Job Title     :          {requested_job['job_title']}")
+    print(f"      Schedule Date :          {job_date}")
+    print(f"      Priority      :          {requested_job['priority']}")
+    print(f"      Status        :          {requested_job['status']}")
+    print("\n────────────────────────────────────────────────────────────────")
+
+    available_found = False
+    for employee in employees:
+        if employee['status'].lower() != "active":
+            continue
+
+        has_conflict = False
+        for assignment in assignments:
+            if assignment['employee_id'].lower() != employee['employee_id'].lower():
+                continue
+
+            for assigned_job in jobs:
+                if assigned_job['job_id'].lower() == assignment['job_id'].lower():
+                    assigned_job_date = datetime.strptime(assigned_job['schedule_date'], "%Y-%m-%d").date()
+
+                    if assigned_job_date == job_date:
+                        has_conflict = True
+                        break
+            if has_conflict:
+                break
+
+        if not has_conflict:
+            available_found = True
+            print("\n────────────────────────────────────────────────────────────────")
+            print("AVAILABLE EMPLOYEE DETAILS:")
+            print(f"\n      Employee ID   :          {employee['employee_id']}")
+            print(f"      Employee Name :          {employee['name']}")
+            print(f"      Department    :          {employee['department']}")
+            print(f"      Role          :          {employee['role']}")
+            print(f"      Availability  :          AVAILABLE")
+            print("\n────────────────────────────────────────────────────────────────")
+
+    if not available_found:
+        print("No available employees found for the specified job date.")
