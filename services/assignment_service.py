@@ -53,7 +53,7 @@ def assignment_menu():
             input("Press Enter to go back to menu: ")
 
         elif choice == "7":
-            print("Job Schedule selected.")
+            job_schedule()
             input("Press Enter to go back to menu: ")
 
         elif choice == "0":
@@ -358,4 +358,48 @@ def employee_assignment():
                         
             print("\n╚══════════════════════════════════════════════════════════════╝")
 
-                    
+
+
+
+def job_schedule():
+    jobs = load_jobs()
+    assignments = load_assignments()
+    employees = load_employees()
+
+    ask_job = input("Enter job ID to check schedule: ").lower().strip()
+
+    for job in jobs:
+        if job['job_id'].lower() == ask_job:
+            print("""
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║                       JOB SCHEDULE                           ║
+║                                                              ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+                    """)
+            print("\n────────────────────────────────────────────────────────────────")
+            print("JOB DETAILS:")
+            print(f"\n      Job ID        :          {job['job_id']}")
+            print(f"      Customer ID   :          {job['customer_id']}")
+            print(f"      Job Title     :          {job['job_title']}")
+            print(f"      Schedule Date :          {job['schedule_date']}")
+            print(f"      Status        :          {job['status']}")
+            print("\n────────────────────────────────────────────────────────────────")
+            assignment_found = False
+            for assignment in assignments:
+                if assignment['job_id'].lower() == job['job_id'].lower():
+                    assignment_found = True
+                    for employee in employees:
+                        if employee['employee_id'].lower() == assignment['employee_id'].lower():
+                            print("ASSIGNED EMPLOYEE DETAILS:")
+                            print(f"\n      Assignment ID :          {assignment['assignment_id']}")
+                            print(f"      Employee ID   :          {assignment['employee_id']}")
+                            print(f"      Assigned Date :          {assignment['assigned_date']}")
+                            print(f"      Status        :          {assignment['status']}")
+                            print("\n────────────────────────────────────────────────────────────────")
+                    if not assignment_found:
+                        print("No Employee Assigned to this Job.")
+            print("\n╚══════════════════════════════════════════════════════════════╝")
+            return
+            
