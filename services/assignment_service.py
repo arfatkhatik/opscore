@@ -49,7 +49,7 @@ def assignment_menu():
             input("Press Enter to go back to menu: ")
 
         elif choice == "6":
-            employee_assignment()
+            check_employee_availability()
             input("Press Enter to go back to menu: ")
 
         elif choice == "7":
@@ -402,4 +402,52 @@ def job_schedule():
                         print("No Employee Assigned to this Job.")
             print("\n╚══════════════════════════════════════════════════════════════╝")
             return
-            
+
+
+def check_employee_availability():
+    employees = load_employees()
+    assignments = load_assignments()
+    jobs = load_jobs()
+
+    ask_employee = input("Enter Employee ID: ").lower().strip() 
+    ask_date = input("Enter Date (YYYY-MM-DD): ").strip()       
+
+    for employee in employees:
+        if employee['employee_id'].lower() == ask_employee:
+            break
+    else:
+        print("No employee found with that ID.")  
+        return  
+
+    try:
+        requested_date = datetime.strptime(ask_date, "%Y-%m-%d").date()
+    except ValueError:
+        print("Invalid date format. please use YYYY-MM-DD format.")
+        return
+
+    has_conflict = False
+    for assignment in assignments:
+        if assignment['employee_id'].lower() != employee['employee_id'].lower():
+            continue
+
+        for job in jobs:
+            if job['job_id'].lower() == assignment['job_id'].lower():
+                job_date = datetime.strptime(job['schedule_date'], "%Y-%m-%d").date()
+                if job_date == requested_date:
+                    has_conflict = True
+                    
+                    print(f"\nEmployee: {employee['name']}")
+                    print(f"Employee ID: {employee['employee_id']}")
+                    print(f"Existing Job: {job['job_title']}")
+                    print(f"Job ID: {job['job_id']}")
+                    print(f"Scheduled Date: {job['schedule_date']}")
+                    print("\nAvailability: NOT AVAILABLE")
+
+                return
+                
+    if not has_conflict:
+        print(f"\nEmployee: {employee['name']}")
+        print(f"Employee ID: {employee['employee_id']}")
+        print(f"Requested Date: {ask_date}")
+        print("\nAvailability: AVAILABLE")
+    
