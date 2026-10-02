@@ -12,5 +12,19 @@
         "employee_id": "job010",
         "assigned_date": "2026-10-02",
         "status": "assigned"
+    },
+    {
+        "assignment_id": "A003",
+        "job_id": "job005",
+        "employee_id": "EM001",
+        "assigned_date": "2026-10-02",
+        "status": "assigned"
+    },
+    {
+        "assignment_id": "A004",
+        "job_id": "job005",
+        "employee_id": "emp011",
+        "assigned_date": "2026-10-02",
+        "status": "assigned"
     }
 ]

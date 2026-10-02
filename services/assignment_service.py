@@ -101,6 +101,9 @@ def assign_employee():
 
     for employee in employees:
         if employee['employee_id'].lower() == ask_employee:
+            if employee['status'].lower() != "active":
+                print("Employee is not active and cannot be assigned to a job.")
+                return
             print("\n────────────────────────────────────────────────────────────────")
             print(f"    employee Id:           {employee['employee_id']}")
             print(f"    Name:                  {employee['name']}")

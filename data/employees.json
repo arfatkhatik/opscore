@@ -88,5 +88,15 @@
         "role": "supervisor",
         "salary": "50000",
         "status": "active"
+    },
+    {
+        "employee_id": "emp011",
+        "name": "tanmay tawade",
+        "email": "xyz",
+        "phone": "1234567890",
+        "department": "service",
+        "role": "technichian",
+        "salary": "18000",
+        "status": "active"
     }
 ]
