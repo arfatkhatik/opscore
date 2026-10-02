@@ -22,7 +22,8 @@ def assignment_menu():
         print("║                                                              ║")
         print("║      [6]   Employee Availability                             ║")
         print("║      [7]   Job Schedule                                      ║")
-        print("║      [8] Find Available Employees                            ║")
+        print("║      [8]   Find Available Employees                          ║")
+        print("║      [9]   Recommend Employees                               ║")
         print("║      [0]   Back to Main Menu                                 ║")
         print("║                                                              ║")
         print("╚══════════════════════════════════════════════════════════════╝")
@@ -59,7 +60,10 @@ def assignment_menu():
         elif choice == "8":
             find_available_employees()
             input("Press Enter to go back to menu: ")
-
+        elif choice == "9":
+            recommend_employees()
+            input("Press Enter to go back to menu: ")
+            
         elif choice == "0":
             break
 
@@ -519,3 +523,48 @@ def find_available_employees():
 
     if not available_found:
         print("No available employees found for the specified job date.")
+
+
+def recommend_employees():
+    jobs = load_jobs()
+    assignments = load_assignments()
+    employees = load_employees()
+
+    ask_job_id = input("Enter job ID to find recommended employees: ").lower().strip()
+
+    active_employees = list(filter(lambda employee: employee['status'].lower() == "active", employees))
+    found = False
+    for job in jobs:
+        if job['job_id'].lower() == ask_job_id:
+            found = True
+            requested_job = job
+            break
+    if not found:
+        print("No job found with that ID.")
+        return
+    
+    job_date = datetime.strptime(requested_job['schedule_date'], "%Y-%m-%d").date()
+
+    for employee in active_employees:
+        has_conflict = False
+        for assignment in assignments:
+            if assignment['employee_id'].lower() != employee['employee_id'].lower():
+                continue
+            for assigned_job in jobs:
+                if assigned_job['job_id'].lower() == assignment['job_id'].lower():
+                    assigned_job_date = datetime.strptime(assigned_job['schedule_date'], "%Y-%m-%d").date()
+                    if assigned_job_date == job_date:
+                        has_conflict = True
+                        break
+            if has_conflict:
+                break
+
+        if not has_conflict:
+            print("\n────────────────────────────────────────────────────────────────")
+            print("RECOMMENDED EMPLOYEE DETAILS:")
+            print(f"\n      Employee ID   :          {employee['employee_id']}")
+            print(f"      Employee Name :          {employee['name']}")
+            print(f"      Department    :          {employee['department']}")
+            print(f"      Role          :          {employee['role']}")
+            print(f"      Availability  :          AVAILABLE")
+            print("\n────────────────────────────────────────────────────────────────")

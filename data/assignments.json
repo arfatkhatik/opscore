@@ -5,5 +5,12 @@
         "employee_id": "EMP003",
         "assigned_date": "2026-09-30",
         "status": "assigned"
+    },
+    {
+        "assignment_id": "A002",
+        "job_id": "job004",
+        "employee_id": "job010",
+        "assigned_date": "2026-10-02",
+        "status": "assigned"
     }
 ]

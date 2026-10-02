@@ -24,6 +24,6 @@
         "description": "Complete annual AC maintenance",
         "priority": "low",
         "schedule_date": "2026-10-3",
-        "status": "pending"
+        "status": "assigned"
     }
 ]

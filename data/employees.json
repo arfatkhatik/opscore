@@ -78,5 +78,15 @@
         "role": "instaler",
         "salary": "29000",
         "status": "active"
+    },
+    {
+        "employee_id": "job010",
+        "name": "vansh gotapagar",
+        "email": "vanshxyz",
+        "phone": "9529137836",
+        "department": "service",
+        "role": "supervisor",
+        "salary": "50000",
+        "status": "active"
     }
 ]
