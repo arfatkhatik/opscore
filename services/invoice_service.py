@@ -33,6 +33,9 @@ def invoice_menu():
         if choice == "1":
             create_invoice()
             input("Press Enter to go back to menu: ")
+        elif choice == "2":
+            view_invoices()
+            input("Press Enter to go back to menu: ")
         elif choice == "0":
             break
         else:
@@ -87,3 +90,32 @@ def create_invoice():
     invoices.append(invoice_data)
     save_invoices(invoices)
     print(f"Invoice {invoice.invoice_id} created successfully for Job {job['job_id']} with amount {invoice.amount}.")
+
+
+def view_invoices():
+    invoices = load_invoices()
+    if not invoices:
+        print("No invoices found.")
+        return
+    print("""
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║                       INVOICE DIRECTORY                      ║
+║                                                              ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+""")
+    for invoice in invoices:
+        print("\n────────────────────────────────────────────────────────────────")
+        print(f"    Invoice ID: {invoice['invoice_id']}")
+        print(f"    Job ID: {invoice['job_id']}")
+        print(f"    Customer ID: {invoice['customer_id']}")
+        print(f"    Amount: {invoice['amount']}")
+        print(f"    Invoice Date: {invoice['invoice_date']}")
+        print(f"    Due Date: {invoice['due_date']}")
+        print(f"    Status: {invoice['status']}")
+        print()
+
+    print("""
+╚══════════════════════════════════════════════════════════════╝
+                """)
