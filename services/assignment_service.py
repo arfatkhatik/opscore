@@ -118,6 +118,13 @@ def assign_employee():
         return
 
     assignments = load_assignments()
+    for assignment in assignments:
+        if assignment['employee_id'].lower() == employee['employee_id'].lower():
+            for assigned_job in jobs:
+                if assigned_job['job_id'].lower() == assignment['job_id'].lower():
+                    if assigned_job['schedule_date'] == job['schedule_date']:
+                        print("Employee is already assigned to another job on that date.")
+                        return
     assignment_number = len(assignments) +1
     assignment_id = f"A{assignment_number:03d}"
 
