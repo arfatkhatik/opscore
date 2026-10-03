@@ -34,3 +34,11 @@ def save_assignments(data):
 def load_assignments():
     with open("data/assignments.json", "r") as file:
         return json.load(file)
+
+def save_invoices(data):
+    with open("data/invoices.json", "w") as file:
+        json.dump(data, file, indent = 4)
+
+def load_invoices():
+    with open("data/invoices.json", "r") as file:
+        return json.load(file)
