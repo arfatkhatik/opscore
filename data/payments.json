@@ -1,0 +1,10 @@
+[
+    {
+        "payment_id": "PAY001",
+        "invoice_id": "INV001",
+        "customer_id": "cus001",
+        "amount": 20000.0,
+        "payment_date": "2026-10-4",
+        "status": "completed"
+    }
+]

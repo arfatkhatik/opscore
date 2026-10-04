@@ -6,6 +6,6 @@
         "amount": 20000.0,
         "invoice_date": "2026-10-03",
         "due_date": "2026-11-02",
-        "status": "unpaid"
+        "status": "paid"
     }
 ]

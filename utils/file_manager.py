@@ -42,3 +42,12 @@ def save_invoices(data):
 def load_invoices():
     with open("data/invoices.json", "r") as file:
         return json.load(file)
+
+def save_payments(data):
+    with open("data/payments.json", "w") as file:
+        json.dump(data, file, indent = 4)
+
+def load_payments():
+    with open("data/payments.json", "r") as file:
+        return json.load(file)
+

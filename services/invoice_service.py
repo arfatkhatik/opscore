@@ -1,4 +1,4 @@
-from utils.file_manager import (load_invoices, load_jobs, save_invoices, load_assignments, save_assignments , save_jobs)
+from utils.file_manager import (load_invoices, load_jobs, save_invoices, load_payments, save_payments)
 from datetime import datetime, timedelta
 from models.invoices import Invoice
 
@@ -44,6 +44,9 @@ def invoice_menu():
             input("Press Enter to go back to menu: ")
         elif choice == "5":
             remove_invoice()
+            input("Press Enter to go back to menu: ")
+        elif choice == "6":
+            record_payment()
             input("Press Enter to go back to menu: ")
         elif choice == "0":
             break
@@ -238,4 +241,73 @@ def remove_invoice():
                 print("Invalid input. try again.")
     if not found:
         print("Invoice not found.")
+        return
+
+
+def record_payment():
+    invoices = load_invoices()
+    if not invoices:
+        print("No invoices found.")
+        return
+
+    search_id = input("Enter the invoice ID to record payment for: ").lower().strip()
+    found = False
+    for invoice in invoices:
+        if invoice['invoice_id'].lower() == search_id:
+            found = True
+            if invoice['status'] == 'paid':
+                print(f"invoice amount is allready paid.")
+                return
+            print("\n────────────────────────────────────────────────────────────────")
+            print(f"    Invoice ID: {invoice['invoice_id']}")
+            print(f"    Job ID: {invoice['job_id']}")
+            print(f"    Customer ID: {invoice['customer_id']}")
+            print(f"    Amount: {invoice['amount']}")
+            print(f"    Invoice Date: {invoice['invoice_date']}")
+            print(f"    Due Date: {invoice['due_date']}")
+            print(f"    Status: {invoice['status']}")
+            print("\n────────────────────────────────────────────────────────────────")
+
+            try:
+                ask_payment = float(input("Enter payment amount: "))
+                if ask_payment <= 0:
+                    print("Invalid amount.")
+                    return
+                if ask_payment != invoice['amount']:
+                    print("Payment amount must exactly match the invoice amount.")
+                    return
+            except ValueError:
+                print("Invalid payment amount. Please enter a number.")
+                return
+
+            payment_date = input("Enter the payment date (YYYY-MM-DD): ").strip()
+            try:
+                payment_date_obj = datetime.strptime(payment_date, "%Y-%m-%d")
+                if payment_date_obj.date() > datetime.now().date():
+                    print("Payment date cannot be in future.")
+                    return
+            except ValueError:
+                print("Invalid date. Please use YYYY-MM-DD")
+                return
+
+            payments = load_payments()
+            payment_number = len(payments) + 1
+            payment_id = f"PAY{payment_number:03d}"
+
+            payment_data = {
+                "payment_id": payment_id,
+                "invoice_id": invoice['invoice_id'],
+                "customer_id": invoice['customer_id'],
+                "amount": ask_payment,
+                "payment_date": payment_date,
+                "status": "completed"
+            }
+            payments.append(payment_data)
+            save_payments(payments)
+            invoice['status'] = "paid"
+            save_invoices(invoices)
+            print(f"Payment {payment_id} recorded successfully.")
+            print(f"Invoice {invoice['invoice_id']} marked as paid.")
+    if not found:
+        print("No invoice found.")
         return
