@@ -3,7 +3,7 @@
         "invoice_id": "INV001",
         "job_id": "job002",
         "customer_id": "cus001",
-        "amount": 25000.0,
+        "amount": 20000.0,
         "invoice_date": "2026-10-03",
         "due_date": "2026-11-02",
         "status": "unpaid"

@@ -39,6 +39,9 @@ def invoice_menu():
         elif choice == "3":
             search_invoice()
             input("Press Enter to go back to menu: ")
+        elif choice == "4":
+            update_invoice()
+            input("Press Enter to go back to menu: ")
         elif choice == "0":
             break
         else:
@@ -149,3 +152,50 @@ def search_invoice():
 
     if not found:
         print("Invoice not found.")
+
+
+def update_invoice():
+    invoices = load_invoices()
+    if not invoices:
+        print("No invoices found.")
+        return
+
+    search_id = input("Enter the invoice ID to update: ").lower().strip()
+
+    found = False
+    for invoice in invoices:
+        if invoice['invoice_id'].lower() == search_id:
+            found = True
+            print(f"Current Amount: {invoice['amount']}")
+            new_amount = input("Enter new amount (or press Enter to keep current): ")
+            if new_amount:
+                invoice['amount'] = float(new_amount)
+                print(f"Invoice {invoice['invoice_id']} updated successfully.")
+            else:
+                print("No changes made in invoice amount.")
+            print(f"Current Status: {invoice['status']}")
+
+            new_status = input(
+                "Enter new status (paid/unpaid/overdue) "
+                "(or press Enter to keep current): "
+            ).strip().lower()
+
+            if new_status:
+                if new_status in ["paid", "unpaid", "overdue"]:
+                    invoice['status'] = new_status
+                    print(f"Invoice {invoice['invoice_id']} status updated successfully.")
+                else:
+                    print("Invalid status. Please enter 'paid', 'unpaid', or 'overdue'.")
+            print(f"Current Due Date: {invoice['due_date']}")
+            new_due_date = input("Enter new due date (YYYY-MM-DD) (or press Enter to keep current): ").strip()
+            if new_due_date:
+                try:
+                    datetime.strptime(new_due_date, "%Y-%m-%d")
+                    invoice['due_date'] = new_due_date
+                    print(f"Invoice {invoice['invoice_id']} updated successfully.")
+                except ValueError:
+                    print("Invalid date format. Please use YYYY-MM-DD.")
+            save_invoices(invoices)
+    if not found:
+        print("Invoice not found.")
+        return
