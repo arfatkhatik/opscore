@@ -36,6 +36,9 @@ def invoice_menu():
         elif choice == "2":
             view_invoices()
             input("Press Enter to go back to menu: ")
+        elif choice == "3":
+            search_invoice()
+            input("Press Enter to go back to menu: ")
         elif choice == "0":
             break
         else:
@@ -119,3 +122,30 @@ def view_invoices():
     print("""
 ╚══════════════════════════════════════════════════════════════╝
                 """)
+
+
+def search_invoice():
+    invoices = load_invoices()
+
+    if not invoices:
+        print("No invoices found.")
+        return
+
+    search_id = input("Enter the invoice ID to search: ").lower().strip()
+    found = False
+    for invoice in invoices:
+        if invoice['invoice_id'].lower() == search_id:
+            found = True
+            print("\n────────────────────────────────────────────────────────────────")
+            print(f"    Invoice ID: {invoice['invoice_id']}")
+            print(f"    Job ID: {invoice['job_id']}")
+            print(f"    Customer ID: {invoice['customer_id']}")
+            print(f"    Amount: {invoice['amount']}")
+            print(f"    Invoice Date: {invoice['invoice_date']}")
+            print(f"    Due Date: {invoice['due_date']}")
+            print(f"    Status: {invoice['status']}")
+            print()
+            break
+
+    if not found:
+        print("Invoice not found.")
