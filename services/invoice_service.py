@@ -51,6 +51,9 @@ def invoice_menu():
         elif choice == "7":
             view_payments()
             input("Press Enter to go back to menu: ")
+        elif choice == "8":
+            search_payment()
+            input("Press Enter to go back to menu: ")
         elif choice == "0":
             break
         else:
@@ -331,4 +334,28 @@ def view_payments():
         print(f"Payment Date  : {payment['payment_date']}")
         print(f"Status        : {payment['status']}")
         print("────────────────────────────────────────")
+
+
+def search_payment():
+    payments = load_payments()
+
+    if not payments:
+        print("No payments found.")
+        return
+
+    search_id = input("Enter payment ID to search: ").strip().lower()
+
+    for payment in payments:
+        if payment["payment_id"].lower() == search_id:
+            print("\n────────────────────────────────────────")
+            print(f"Payment ID    : {payment['payment_id']}")
+            print(f"Invoice ID    : {payment['invoice_id']}")
+            print(f"Customer ID   : {payment['customer_id']}")
+            print(f"Amount        : {payment['amount']}")
+            print(f"Payment Date  : {payment['payment_date']}")
+            print(f"Status        : {payment['status']}")
+            print("────────────────────────────────────────")
+            return
+
+    print("Payment not found.")
         
