@@ -150,3 +150,39 @@ def job_performance_report():
     
     print("\n────────────────────────────────────────────────────────────────")
     input("\nPress Enter to return to Reports Menu...")
+
+
+def employee_performance_report():
+    employees = load_employees()
+    assignments = load_assignments()
+    jobs = load_jobs()
+    print("""
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║                 EMPLOYEE PERFORMANCE REPORT                  ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+""")
+    
+    for employee in employees:
+        employee_assignments = 0
+        completed_jobs = 0
+        active_jobs = 0
+        print(f"\n    Employee ID:     {employee['employee_id']}")
+        print(f"    Employee Name:   {employee['name']}")
+        for assignment in assignments:
+            if assignment['employee_id'].lower() == employee['employee_id'].lower():
+                employee_assignments += 1
+                for job in jobs:
+                    if job['job_id'].lower() == assignment['job_id'].lower():
+                        if job['status'] == "completed":
+                            completed_jobs += 1
+                        elif job['status'].lower() == "assigned":
+                            active_jobs += 1
+        print(f"    Total assignments: {employee_assignments}")
+        print(f"    Completed jobs:    {completed_jobs}")
+        print(f"    Active jobs:       {active_jobs}")
+        print("\n────────────────────────────────────────────────────────────────")
+    print("\n╚══════════════════════════════════════════════════════════════╝")
+    input("\nPress Enter to return to Reports Menu...")
+        
