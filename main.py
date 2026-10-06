@@ -4,7 +4,7 @@ from services.customer_service import  customer_menu
 from services.job_service import job_menu
 from services.assignment_service import assignment_menu
 from services.invoice_service import invoice_menu
-from services.report_service import operations_summary
+from services.report_service import reports_menu
 def splash_screen():
     print("""
 ╔══════════════════════════════════════════════════════════════╗
@@ -87,7 +87,7 @@ def main():
         elif choice == "5":
             invoice_menu()
         elif choice == "6":
-            operations_summary()
+            reports_menu()
         
         elif choice == "0":
             print("Exiting OPSCORE...")

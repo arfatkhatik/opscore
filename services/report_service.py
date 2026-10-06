@@ -1,4 +1,37 @@
 from utils.file_manager import (load_employees,save_employee,load_jobs,save_jobs,load_assignments,save_assignments,load_customers,save_customer,load_invoices,save_invoices,load_payments,save_payments)
+def reports_menu():
+    while True:
+        print("""
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║                    REPORTS & ANALYTICS                       ║
+║                                                              ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+║   [1] Operations Summary                                     ║
+║   [2] Job Performance Report                                 ║
+║   [3] Employee Performance Report                            ║
+║   [4] Financial Report                                       ║
+║   [0] Back to Main Menu                                      ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+""")
+
+        choice = input("Enter your choice: ").strip()
+
+        if choice == "1":
+            operations_summary()
+        elif choice == "2":
+            job_performance_report()
+        elif choice == "3":
+            employee_performance_report()
+        elif choice == "4":
+            financial_report()
+        elif choice == "0":
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
 
 def operations_summary():
     employees = load_employees()
@@ -6,7 +39,6 @@ def operations_summary():
     jobs = load_jobs()
     assignments = load_assignments()
     invoices = load_invoices()
-    payments = load_payments()
     while True:
         print("""
 ╔══════════════════════════════════════════════════════════════╗
@@ -82,3 +114,39 @@ def operations_summary():
         print("\n╚══════════════════════════════════════════════════════════════╝")
         input("\nPress Enter to return to Main Menu...")
         break
+
+
+def job_performance_report():
+    jobs = load_jobs()
+    if not jobs:
+        print("No jobs found")
+        return
+
+    print("\n                       JOBS PERFORMANCE REPORT")
+    total_jobs = len(jobs)
+    print(f"\n      • TOTAL JOBS: {total_jobs}")
+    
+    pending_jobs = 0
+    assigned_jobs = 0
+    completed_jobs = 0
+    
+    for job in jobs:
+        status = job['status'].lower()
+    
+        if status == "pending":
+                    pending_jobs += 1
+        elif status == "assigned":
+            assigned_jobs += 1
+        elif status == "completed":
+            completed_jobs += 1
+    if total_jobs == 0:
+        completion_rate = 0
+    else:
+        completion_rate = completed_jobs / total_jobs * 100
+    print(f"      • PENDING JOBS: {pending_jobs}")
+    print(f"      • ASSIGNED JOBS: {assigned_jobs}")
+    print(f"      • COMPLETED JOBS: {completed_jobs}")
+    print(f"      • COMPLETION RATE: {completion_rate:.2f}%")
+    
+    print("\n────────────────────────────────────────────────────────────────")
+    input("\nPress Enter to return to Reports Menu...")
