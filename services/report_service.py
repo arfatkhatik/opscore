@@ -185,4 +185,72 @@ def employee_performance_report():
         print("\n────────────────────────────────────────────────────────────────")
     print("\n╚══════════════════════════════════════════════════════════════╝")
     input("\nPress Enter to return to Reports Menu...")
-        
+
+
+def financial_report():
+    invoices = load_invoices()
+    payments = load_payments()
+
+    if not invoices:
+        print("No invoices found.")
+        return
+
+    print("""
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║                     FINANCIAL REPORT                         ║
+║                                                              ║
+╠══════════════════════════════════════════════════════════════╣
+""")
+
+    
+    total_invoices = len(invoices)
+
+    paid_count = 0
+    unpaid_count = 0
+    overdue_count = 0
+
+    total_invoiced = 0
+    total_collected = 0
+
+    for invoice in invoices:
+        status = invoice['status'].lower()
+        amount = invoice['amount']
+
+        total_invoiced += amount
+
+        if status == "paid":
+            paid_count += 1
+            total_collected += amount
+
+        elif status == "unpaid":
+            unpaid_count += 1
+
+        elif status == "overdue":
+            overdue_count += 1
+
+    total_outstanding = total_invoiced - total_collected
+
+    if total_invoiced == 0:
+        collection_rate = 0
+    else:
+        collection_rate = (total_collected / total_invoiced) * 100
+
+    print("INVOICE OVERVIEW")
+    print(f"\n    Total Invoices:         {total_invoices}")
+    print(f"    Paid Invoices:          {paid_count}")
+    print(f"    Unpaid Invoices:        {unpaid_count}")
+    print(f"    Overdue Invoices:       {overdue_count}")
+
+    print("\nCOLLECTION ANALYSIS")
+    print(f"\n    Total Invoiced:         ₹{total_invoiced}")
+    print(f"    Total Collected:        ₹{total_collected}")
+    print(f"    Total Outstanding:      ₹{total_outstanding}")
+    print(f"    Collection Rate:        {collection_rate:.2f}%")
+
+    print("\nPAYMENT OVERVIEW")
+    total_payments = len(payments)
+    print(f"\n    Payments Recorded:      {total_payments}")
+
+    print("\n────────────────────────────────────────────────────────────────")
+    input("\nPress Enter to return to Reports Menu...")
