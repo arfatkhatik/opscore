@@ -130,7 +130,7 @@ def update_customer():
         print("No customer found.")
         return
 
-    search_id = input("Enter customer Id to search: ")
+    search_id = input("Enter customer Id to update: ")
 
     for customer in customers:
         if customer['customer_id'].lower() == search_id.lower():
