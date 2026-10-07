@@ -88,3 +88,116 @@ def system_information():
 """)
 
     input("Press Enter to return to System Management...")
+
+
+def directory_management():
+    while True:
+        print("""
+    ╔══════════════════════════════════════════════════════════════╗
+    ║                                                              ║
+    ║                    MANAGE DIRECTORIES                        ║
+    ║                                                              ║
+    ╠══════════════════════════════════════════════════════════════╣
+    ║                                                              ║
+    ║   [1] View Directory Contents                                ║
+    ║   [2] Check Directory Status                                 ║
+    ║   [3] Create Directory                                       ║
+    ║   [4] Remove Directory                                       ║
+    ║                                                              ║
+    ║   [0] Back to System Management                              ║
+    ║                                                              ║
+    ╚══════════════════════════════════════════════════════════════╝
+    """)
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            view_directory()
+        elif choice == "2":
+            view_status()
+        elif choice == "3":
+            pass
+        elif choice == "4":
+            pass
+        elif choice == "0":
+             break
+        
+        else:
+            print("Invalid choice. Please try again.")
+
+def view_directory():
+    while True:    
+        print("""
+    Select Directory
+
+    [1] data
+    [2] logs
+    [3] backups
+    [0] Back
+
+    """)
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            files = os.listdir("data")
+            for file in files:
+                print(file)
+        elif choice == "2":
+            files = os.listdir("logs")
+            for file in files:
+                print(file)
+        elif choice == "3":
+            files = os.listdir("backups")
+            for file in files:
+                print(file)
+        elif choice == "0":
+            break
+        else:
+            print("Invalid option. please try again")
+
+def view_status():
+    while True:
+        print("""
+Select Directory
+
+    [1] data
+    [2] logs
+    [3] backups
+    [0] Back
+
+""")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            directory = "data"
+
+        elif choice == "2":
+            directory = "logs"
+
+        elif choice == "3":
+            directory = "backups"
+
+        elif choice == "0":
+            break
+
+        else:
+            print("Invalid option. Please try again.")
+            continue
+
+        print("\nDIRECTORY STATUS:")
+        print(f"\nDirectory name: {directory}")
+
+        if os.path.exists(directory):
+            print("Exists        : Yes")
+
+            if os.path.isdir(directory):
+                print("Type          : Directory")
+                print(f"Items         : {len(os.listdir(directory))}")
+            else:
+                print("Type          : Not a Directory")
+                print("Items         : 0")
+
+        else:
+            print("Exists        : No")
+            print("Type          : Not Found")
+            print("Items         : 0")
+
+        input("\nPress Enter to continue...")
