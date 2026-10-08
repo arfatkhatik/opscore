@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from utils.file_manager import (load_employees, load_assignments,load_customers,load_invoices,load_jobs,load_payments)
 
 def system_management_menu():
@@ -214,6 +215,7 @@ def create_directory():
 
     elif not exists:
         os.makedirs(ask_name)
+        log_event(f"Directory {ask_name} created")
         print(f"directory {ask_name} created successfully.")
         input("\nPress Enter to continue...")
 
@@ -232,6 +234,7 @@ def remove_directory():
         confirmation = input("do you really want to remove directory? (yes/no): ")
         if confirmation == "yes":
             os.rmdir(ask_name)
+            log_event(f"Directory {ask_name} removed")
             print(f"Directory {ask_name} deleted succesfully.")
             input("\nPress Enter to continue...")
         elif confirmation == "no":
@@ -304,3 +307,10 @@ def latest_log():
         print("log file does not exists.")
         print("No logs available.")
         input("\nPress Enter to continue...")
+
+
+def log_event(message):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H-%M-%M")
+
+    with open("logs/opscore.log", "a") as file:
+        file.write(f"{timestamp} - {message}\n")

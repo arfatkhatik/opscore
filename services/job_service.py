@@ -1,5 +1,6 @@
 from models.jobs import Job
 from utils.file_manager import save_jobs, load_jobs
+from services.system_management import log_event
 
 def job_menu():
 
@@ -73,6 +74,7 @@ def add_job():
     jobs = load_jobs()
     jobs.append(job_data)
     save_jobs(jobs)
+    log_event(f"Job {job['job_id']} created")
     print("Job added successfully")
 
 
@@ -171,6 +173,7 @@ def update_job():
                 return
 
             save_jobs(jobs)
+            log_event(f"Job {job['job_id']} updated")
 
             print("Details updated successfully.")
             return
@@ -202,6 +205,7 @@ def remove_job():
             if confirmation == "yes":
                 jobs.remove(job)
                 save_jobs(jobs)
+                log_event(f"Job {job['job_id']} deleted")
                 print("Job removed successfully.")
                 return
             elif confirmation == "no":

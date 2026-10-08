@@ -2,6 +2,7 @@
 from utils.file_manager import (load_jobs, load_employees, load_assignments, save_assignments , save_jobs)
 from datetime import datetime
 from models.assignment import Assignment
+from services.system_management import log_event
 
 
 def assignment_menu():
@@ -146,6 +147,7 @@ def assign_employee():
     }
     assignments.append(assignment_data)
     save_assignments(assignments)
+    log_event(f"Employee {assignment.employee_id} assigned to Job {assignment.job_id}")
 
     job['status'] = "assigned"
     save_jobs(jobs)
@@ -246,6 +248,7 @@ def update_assignment():
                         assignment['employee_id'] = employee['employee_id']
 
                         save_assignments(assignments)
+                        log_event(f"Assignment {assignment['assignment_id']} updated")
 
                         print(
                             f"Employee ID changed to "
@@ -264,6 +267,7 @@ def update_assignment():
                         assignment['job_id'] = job['job_id']
 
                         save_assignments(assignments)
+                        log_event(f"Assignment {assignment['assignment_id']} removed")
 
                         print(
                             f"Job ID changed to "
@@ -279,6 +283,7 @@ def update_assignment():
                 assignment['assigned_date'] = new_assigned_date
 
                 save_assignments(assignments)
+                log_event(f"Assignment {assignment['assignment_id']} removed")
 
                 print(
                     f"Assigned date changed to "
@@ -324,6 +329,7 @@ def remove_assignment():
             if confirmation in ("1", "yes"):
                 assignments.remove(assignment)
                 save_assignments(assignments)
+                log_event(f"Assignment {assignment['assignment_id']} removed")
                 print("assignment removed successfully.")
                 return
             elif confirmation in ("2", "no"):

@@ -1,6 +1,7 @@
 from utils.file_manager import (load_invoices, load_jobs, save_invoices, load_payments, save_payments)
 from datetime import datetime, timedelta
 from models.invoices import Invoice
+from services.system_management import log_event
 
 
 def invoice_menu():
@@ -110,6 +111,7 @@ def create_invoice():
     }
     invoices.append(invoice_data)
     save_invoices(invoices)
+    log_event(f"Invoice {invoice['invoice_id']} created")
     print(f"Invoice {invoice.invoice_id} created successfully for Job {job['job_id']} with amount {invoice.amount}.")
 
 
@@ -211,6 +213,7 @@ def update_invoice():
                 except ValueError:
                     print("Invalid date format. Please use YYYY-MM-DD.")
             save_invoices(invoices)
+            log_event(f"Invoice {invoice['invoice_id']} updated")
     if not found:
         print("Invoice not found.")
         return
@@ -241,6 +244,7 @@ def remove_invoice():
             if confirm == "yes":
                 invoices.remove(invoice)
                 save_invoices(invoices)
+                log_event(f"Invoice {invoice['invoice_id']} deleted")
                 print(f"Invoice {invoice['invoice_id']} removed successfully.")
                 return
             elif confirm == "no":
@@ -315,6 +319,9 @@ def record_payment():
             save_payments(payments)
             invoice['status'] = "paid"
             save_invoices(invoices)
+
+            log_event(f"Payment {payment_data['payment_id']} recorded for Invoice {payment_data['invoice_id']}")
+            
             print(f"Payment {payment_id} recorded successfully.")
             print(f"Invoice {invoice['invoice_id']} marked as paid.")
     if not found:

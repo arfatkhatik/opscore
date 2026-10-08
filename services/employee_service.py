@@ -1,4 +1,5 @@
 from models.employee import Employee
+from services.system_management import log_event
 from utils.file_manager import save_employee, load_employees
 def employee_menu():
 
@@ -72,6 +73,7 @@ def add_employee():
                 employees = load_employees()
                 employees.append(employee_data)
                 save_employee(employees)
+                log_event(f"Employee {employee.employee_id} created")
                 print("Employee added successfully")
 
 
@@ -179,6 +181,7 @@ def update_employee():
                 return
 
             save_employee(employees)
+            log_event(f"Employee {employee['employee_id']}updated")
 
             print("Employee details updated successfully.")
             return
@@ -209,6 +212,7 @@ def remove_employee():
             if confirmation == "yes":
                 employees.remove(employee)
                 save_employee(employees)
+                log_event(f"Employee {employee_id} deleted")
                 print(f"Employee named {employee['name']} removed successfully.")
                 return
             elif confirmation == "no":

@@ -1,5 +1,6 @@
 from models.customers import Customer
 from utils.file_manager import save_customer,load_customers
+from services.system_management import log_event
 def customer_menu():
 
     while True:
@@ -72,6 +73,7 @@ def add_customer():
     customers = load_customers()
     customers.append(customer_data)
     save_customer(customers)
+    log_event(f"Customer {customer['customer_id']} created")
     print("Customer added successfully.")
 
 
@@ -174,6 +176,7 @@ def update_customer():
                 return
 
             save_customer(customers)
+            log_event(f"Customer {customer['customer_id']} updated")
 
             print("Customer updated successfully.")
             
@@ -203,6 +206,7 @@ def remove_customer():
             if confirmation == "yes":
                 customers.remove(customer)
                 save_customer(customers)
+                log_event(f"Customer {customer['customer_id']} deleted")
                 print("Customer removed successfully.")
                 return
             elif confirmation == "no":

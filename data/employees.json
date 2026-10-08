@@ -98,5 +98,15 @@
         "role": "technichian",
         "salary": "18000",
         "status": "active"
+    },
+    {
+        "employee_id": "emp012",
+        "name": "shivaa kattimani",
+        "email": "xyz",
+        "phone": "43543564",
+        "department": "service",
+        "role": "technician",
+        "salary": "18000",
+        "status": "active"
     }
 ]
