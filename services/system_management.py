@@ -243,3 +243,64 @@ def remove_directory():
     else:
         print("Directory does not exists.")
         input("\nPress Enter to continue...")
+
+
+def view_logs():
+    while True:
+        print("""
+    ╔══════════════════════════════════════════════════════════════╗
+    ║                                                              ║
+    ║                         VIEW LOGS                            ║
+    ║                                                              ║
+    ╠══════════════════════════════════════════════════════════════╣
+    ║                                                              ║
+    ║   [1] View All Logs                                          ║
+    ║   [2] View Latest Log Entries                                ║
+    ║   [0] Back to System Management                              ║
+    ║                                                              ║
+    ╚══════════════════════════════════════════════════════════════╝
+    """)
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            view_all_logs()
+        elif choice == "2":
+            latest_log()
+        elif choice == "0":
+            break
+        else:
+            print("Invalid option selected. please try again.")
+
+
+def view_all_logs():
+    exists = os.path.exists("logs/opscore.log")
+
+    if exists:
+        with open("logs/opscore.log", "r") as file:
+            logs = file.read()
+            print("\n========== OPSCORE LOGS ==========\n")
+            print(logs)
+
+        input("\nPress Enter to continue...")
+
+    else:
+        print("log file does not exists.")
+        print("No logs available.")
+        input("\nPress Enter to continue...")
+
+
+def latest_log():
+    exists = os.path.exists("logs/opscore.log")
+
+    if exists:
+        with open("logs/opscore.log", "r") as file:
+            logs = file.readlines()
+            logs = logs[-10:]
+            print("========== LATEST LOG ENTRIES ==========")
+            for log in logs:
+                print(log, end="")
+        input("\nPress Enter to continue...")
+
+    else:
+        print("log file does not exists.")
+        print("No logs available.")
+        input("\nPress Enter to continue...")
