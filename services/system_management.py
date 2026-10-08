@@ -114,9 +114,9 @@ def directory_management():
         elif choice == "2":
             view_status()
         elif choice == "3":
-            pass
+            create_directory()
         elif choice == "4":
-            pass
+            remove_directory()
         elif choice == "0":
              break
         
@@ -200,4 +200,46 @@ Select Directory
             print("Type          : Not Found")
             print("Items         : 0")
 
+        input("\nPress Enter to continue...")
+
+
+def create_directory():
+    ask_name = input("Enter name to create directory: ")
+
+    exists = os.path.exists(ask_name)
+
+    if exists:
+        print("directoty already exist.")
+        input("\nPress Enter to continue...")
+
+    elif not exists:
+        os.makedirs(ask_name)
+        print(f"directory {ask_name} created successfully.")
+        input("\nPress Enter to continue...")
+
+
+def remove_directory():
+    ask_name = input("Enter directory name to remove: ")
+
+    protected_directories = ["data", "logs", "backup"]
+    if ask_name.lower() in protected_directories:
+        print("This is a protected OPSCORE directory and cannot be removed.")
+        input("\nPress Enter to continue...")
+        return
+    exists = os.path.exists(ask_name)
+
+    if exists:
+        confirmation = input("do you really want to remove directory? (yes/no): ")
+        if confirmation == "yes":
+            os.rmdir(ask_name)
+            print(f"Directory {ask_name} deleted succesfully.")
+            input("\nPress Enter to continue...")
+        elif confirmation == "no":
+            print("removal canceled.")
+            input("\nPress Enter to continue...")
+        else:
+            print("Invalid option selected. please try again.")
+
+    else:
+        print("Directory does not exists.")
         input("\nPress Enter to continue...")
