@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 from utils.file_manager import (load_employees, load_assignments,load_customers,load_invoices,load_jobs,load_payments)
+import json
 
 def system_management_menu():
     while True:
@@ -314,3 +315,39 @@ def log_event(message):
 
     with open("logs/opscore.log", "a") as file:
         file.write(f"{timestamp} - {message}\n")
+
+def system_configuration():
+    while True:
+        print("""
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║                    SYSTEM CONFIGURATION                      ║
+║                                                              ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+║   [1] View Current Configuration                             ║
+║   [2] Update Configuration                                   ║
+║                                                              ║
+║   [0] Back to System Management                              ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+""")
+
+        choice = input("Enter option number: ")
+
+        if choice == "1":
+            view_configuration()
+        elif choice == "2":
+            update_configuration()
+        elif choice == "0":
+            break
+        else:
+            print("Invalid option.")
+
+def view_configuration():
+    with open("data/system_config.json", "r") as file:
+        config = json.load(file)
+
+        for key, value in config.items():
+            print(f"{key}: {value}")
+

@@ -111,7 +111,8 @@ def create_invoice():
     }
     invoices.append(invoice_data)
     save_invoices(invoices)
-    log_event(f"Invoice {invoice['invoice_id']} created")
+    log_event(f"Invoice {invoice_id} created")
+
     print(f"Invoice {invoice.invoice_id} created successfully for Job {job['job_id']} with amount {invoice.amount}.")
 
 

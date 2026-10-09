@@ -6,5 +6,13 @@
         "amount": 20000.0,
         "payment_date": "2026-10-4",
         "status": "completed"
+    },
+    {
+        "payment_id": "PAY002",
+        "invoice_id": "INV002",
+        "customer_id": "cus010",
+        "amount": 5000.0,
+        "payment_date": "2026-10-08",
+        "status": "completed"
     }
 ]

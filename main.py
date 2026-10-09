@@ -91,7 +91,6 @@ def main():
             reports_menu()
         elif choice == "7":
             system_management_menu()
-        
         elif choice == "0":
             print("Exiting OPSCORE...")
             break

@@ -33,7 +33,7 @@
         "description": "ac maintanance",
         "priority": "medium",
         "schedule_date": "2026-10-6",
-        "status": "pending"
+        "status": "completed"
     },
     {
         "job_id": "job005",
