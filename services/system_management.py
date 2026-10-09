@@ -351,3 +351,41 @@ def view_configuration():
         for key, value in config.items():
             print(f"{key}: {value}")
 
+def update_configuration():
+    with open("data/system_config.json", "r") as file:
+        config = json.load(file)
+
+        print("\n========== UPDATE CONFIGURATION ==========\n")
+
+        for key, value in config.items():
+            print(f"{key}: {value}")
+
+        setting = input("Enter the setting name to update: ")
+
+        if setting not in config:
+            print("Invalid setting Name.")
+            input("Press Enter to continue...")
+            return
+
+        new_value = input("Enter new value: ").strip()
+
+        if setting == "low_stock_threshold":
+            try:
+                new_value = int(new_value)
+                if new_value < 0:
+                    print("Threshold cannot be negative.")
+                    input("\nPress Enter to continue...")
+                    return
+            except ValueError:
+                print("Threshold must be a whole number.")
+                input("\nPress Enter to continue...")
+                return
+        config[setting] = new_value
+
+        with open("data/system_config.json", "w") as file:
+            json.dump(config, file, indent=4)
+
+        print("Configuration updated successfully.")
+        log_event(f"Configuration setting '{setting}' updated")
+
+        input("\nPress Enter to continue...")
