@@ -402,6 +402,117 @@ def create_backup():
     except OSError as e:
         print(f"Backup failed {e}")
 
+def restore_backup():
+    exists = os.path.exists("backups")
+
+    if not exists:
+        print("Backups doesn't exists")
+        return
+
+    backups = [
+        name for name in os.listdir("backups")
+        if name.startswith("backup_")
+        and os.path.isdir(os.path.join("backups", name))
+    ]
+    if not backups:
+        print("No Backup available.")
+        input("\nPress Enter to continue...")
+        return
+    
+    print("\n========== AVAILABLE BACKUPS ==========\n")
+
+    for index, backup in enumerate(backups, start = 1):
+        print(index,backup)
+
+    try:
+        choice = int(input("Enter backup number to restore: "))
+
+        if choice < 1 or choice > len(backups):
+            print("Invalid backup Number.")
+            return
+    except ValueError:
+        print("Please enter valid number.")
+        return
+
+    selected_backup = backups[choice -1]
+    print(f"Selected backup: {selected_backup}")
+    confirm = input("Are you sure you want to restore this backup? (yes/no): ").lower().strip()
+
+    if confirm != "yes":
+        print("Restore cancelled.")
+        return
+
+    elif confirm == "yes":
+        backup_path = os.path.join("backups", selected_backup)
+        data_path = "data"
+        if not os.path.isdir(backup_path):
+            print("Selected backup is not valid directory.")
+            return
+        if not os.path.isfile(os.path.join(backup_path, "system_config.json")):
+            print("Backup is missing system_config.json.")
+            return
+
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        safety_backup_path = os.path.join("backups", f"pre_restore_{timestamp}")
+
+        try:
+            shutil.copytree(data_path, safety_backup_path)
+            print(f"Safety backup created at {safety_backup_path}")
+
+        except OSError as e:
+            print(f"Could not create safety backup: {e}")
+            return
+        print("Safety backup completed. Ready to restore.")
+        log_event(f"Safety backup created at {safety_backup_path}")
+        temp_data_path = f"data_restore_{timestamp}"
+        old_data_path = f"data_before_restore_{timestamp}"
+        
+        try:
+            shutil.copytree(backup_path, temp_data_path)
+            print("Backup copied to temporary folder.")
+
+        except OSError as e:
+            print(f"Could not prepare backup for restoration: {e}")
+
+            if os.path.exists(temp_data_path):
+                try:
+                    shutil.rmtree(temp_data_path)
+                except OSError as cleanup_error:
+                    print(f"Could not remove temporary folder: {cleanup_error}")
+
+            return
+
+        try:
+            os.rename(data_path, old_data_path)
+            print("Current data folder preserved.")
+
+        except OSError as e:
+            print(f"Could not preserve current data: {e}")
+
+            if os.path.exists(temp_data_path):
+                try:
+                    shutil.rmtree(temp_data_path)
+                except OSError as cleanup_error:
+                    print(f"Could not remove temporary folder: {cleanup_error}")
+
+            return
+        try:
+            os.rename(temp_data_path, data_path)
+            print("Backup restored successfully.")
+            log_event(f"Backup restored from {backup_path}")
+            log_event(f"Previous data preserved at {old_data_path}")
+        except OSError as e:
+            print(f"Restore failed: {e}")
+
+            try:
+                os.rename(old_data_path, data_path)
+                print("Previous data restored.")
+            except OSError as rollback_error:
+                print(f"CRITICAL: Could not restore previous data: {rollback_error}")
+
+            return
+    
+    input("\nPress Enter to continue...")
 
 
 
