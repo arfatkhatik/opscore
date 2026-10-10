@@ -1,0 +1,42 @@
+[
+    {
+        "customer_id": "cus001",
+        "name": "arfatkhatik",
+        "email": "xyz",
+        "phone": "0987654321",
+        "address": "lowjee",
+        "status": "active"
+    },
+    {
+        "customer_id": "cus002",
+        "name": "altafpinjari",
+        "email": "xyz",
+        "phone": "1234554321",
+        "address": "dp road",
+        "status": "active"
+    },
+    {
+        "customer_id": "cus003",
+        "name": "arnavsalvi",
+        "email": "xyz",
+        "phone": "567899865",
+        "address": "palasdari",
+        "status": "active"
+    },
+    {
+        "customer_id": "cus004",
+        "name": "vijay",
+        "email": "xyz",
+        "phone": "435435434",
+        "address": "lowjee",
+        "status": "inactive"
+    },
+    {
+        "customer_id": "cus005",
+        "name": "shravanhadap",
+        "email": "xyz",
+        "phone": "943023423",
+        "address": "kelavli",
+        "status": "inactive"
+    }
+]

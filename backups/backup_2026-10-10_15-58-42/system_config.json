@@ -1,0 +1,7 @@
+{
+    "system_name": "OPSCORE",
+    "company_name": "Tafra enterprises",
+    "currency": "INR",
+    "date_format": "%Y-%m-%d",
+    "low_stock_threshold": 10
+}

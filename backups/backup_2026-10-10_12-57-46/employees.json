@@ -1,0 +1,112 @@
+[
+    {
+        "employee_id": "EM001",
+        "name": "arfatkhatik",
+        "email": "arfatkhatik@gmail.com",
+        "phone": "Enter phone No: ",
+        "department": "operation",
+        "role": "manager",
+        "salary": "35000",
+        "status": "active"
+    },
+    {
+        "employee_id": "EM002",
+        "name": "altafpinjari",
+        "email": "altafpinjari@gmail.com",
+        "phone": "Enter phone No: ",
+        "department": "operation",
+        "role": "supervisor",
+        "salary": "35000",
+        "status": "active"
+    },
+    {
+        "employee_id": "EMP003",
+        "name": "shravan hadap",
+        "email": "xyz",
+        "phone": "1234567890",
+        "department": "operation",
+        "role": "technechian",
+        "salary": "18000",
+        "status": "active"
+    },
+    {
+        "employee_id": "EMP004",
+        "name": "aryan kamble",
+        "email": "xyz",
+        "phone": "1234512345",
+        "department": "operation",
+        "role": "machanic",
+        "salary": "19000",
+        "status": "active"
+    },
+    {
+        "employee_id": "EMP005",
+        "name": "arjun patil",
+        "email": "xyz",
+        "phone": "09876543",
+        "department": "service",
+        "role": "technician",
+        "salary": "18000",
+        "status": "active"
+    },
+    {
+        "employee_id": "EMP006",
+        "name": "sameer khan",
+        "email": "xyz",
+        "phone": "5432154321",
+        "department": "service",
+        "role": "technician",
+        "salary": "28000",
+        "status": "active"
+    },
+    {
+        "employee_id": "EMP007",
+        "name": "rohan joshi",
+        "email": "xyz",
+        "phone": "45345345",
+        "department": "service",
+        "role": "technician",
+        "salary": "20000",
+        "status": "active"
+    },
+    {
+        "employee_id": "EMP008",
+        "name": "ayan shaikh",
+        "email": "xyz",
+        "phone": "453453452",
+        "department": "installation",
+        "role": "instaler",
+        "salary": "29000",
+        "status": "active"
+    },
+    {
+        "employee_id": "job010",
+        "name": "vansh gotapagar",
+        "email": "vanshxyz",
+        "phone": "9529137836",
+        "department": "service",
+        "role": "supervisor",
+        "salary": "50000",
+        "status": "active"
+    },
+    {
+        "employee_id": "emp011",
+        "name": "tanmay tawade",
+        "email": "xyz",
+        "phone": "1234567890",
+        "department": "service",
+        "role": "technichian",
+        "salary": "18000",
+        "status": "active"
+    },
+    {
+        "employee_id": "emp012",
+        "name": "shivaa kattimani",
+        "email": "xyz",
+        "phone": "43543564",
+        "department": "service",
+        "role": "technician",
+        "salary": "18000",
+        "status": "active"
+    }
+]

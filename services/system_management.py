@@ -1,4 +1,5 @@
 import os
+import shutil
 from datetime import datetime
 from utils.file_manager import (load_employees, load_assignments,load_customers,load_invoices,load_jobs,load_payments)
 import json
@@ -389,3 +390,20 @@ def update_configuration():
         log_event(f"Configuration setting '{setting}' updated")
 
         input("\nPress Enter to continue...")
+
+def create_backup():
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    backup_name = f"backup_{timestamp}"
+    backup_path = f"backups/{backup_name}"
+    try:
+        shutil.copytree("data", backup_path)
+        print(f"backup created {backup_path}")
+        log_event(f"backup created at {backup_path}")
+    except OSError as e:
+        print(f"Backup failed {e}")
+
+
+
+
+
+    

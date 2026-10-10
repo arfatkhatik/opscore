@@ -1,0 +1,47 @@
+[
+    {
+        "job_id": "job001",
+        "customer_id": "cus001",
+        "job_title": "electrical panel repair",
+        "description": "Repair faulty electrical panel",
+        "priority": "high",
+        "schedule_date": "2026-10-5",
+        "status": "completed"
+    },
+    {
+        "job_id": "job002",
+        "customer_id": "cus002",
+        "job_title": "network installation",
+        "description": "Install and configure office network",
+        "priority": "medium",
+        "schedule_date": "2026-10-2",
+        "status": "assigned"
+    },
+    {
+        "job_id": "job003",
+        "customer_id": "cus001",
+        "job_title": "ac maintanance",
+        "description": "Complete annual AC maintenance",
+        "priority": "low",
+        "schedule_date": "2026-10-3",
+        "status": "assigned"
+    },
+    {
+        "job_id": "job004",
+        "customer_id": "cus010",
+        "job_title": "ac maintanance",
+        "description": "ac maintanance",
+        "priority": "medium",
+        "schedule_date": "2026-10-6",
+        "status": "completed"
+    },
+    {
+        "job_id": "job005",
+        "customer_id": "cus011",
+        "job_title": "wifi installation",
+        "description": "want to install wifi at office",
+        "priority": "high",
+        "schedule_date": "2026-10-4",
+        "status": "completed"
+    }
+]
